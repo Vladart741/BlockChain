@@ -23,7 +23,7 @@
 int randomNum(int a, int b);
 Transactions New_Transactions(int kiek, int kiek_useriu);
 Users New_Users(int kiek);
-Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions);
+Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions, std::vector<std::string>block_name_history);
 
 template< typename T >
 std::string int_to_hex(T i);

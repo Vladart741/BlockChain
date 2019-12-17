@@ -50,7 +50,7 @@ public:
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			std::cout << "-------------------------------------------" << std::endl;
-			std::cout << "BLOCK " + i<< std::endl;
+			std::cout << "BLOCK " + std::to_string(i)<< std::endl;
 			std::cout <<blocks[i].prev_block_hash << std::endl;
 			std::cout <<blocks[i].current_block_hash << std::endl;
 			std::cout <<blocks[i].time_stamp << std::endl;

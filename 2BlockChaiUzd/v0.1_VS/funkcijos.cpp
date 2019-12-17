@@ -57,7 +57,7 @@ Transactions New_Transactions(int kiek, int kiek_useriu)
 }
 
 
-Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions)
+Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions, std::vector<std::string>block_name_history)
 {
 	Block NewBlock;
 	
@@ -73,7 +73,15 @@ Block Mining(int difficulty, std::string prev, std::vector<Transaction>transacti
 			}
 
 		}
-		if (dif == 0 && prev != test)
+		int sutapimai = 0;
+		for (int i = 0; i < block_name_history.size(); i++)
+		{
+			if (test == block_name_history[i])
+			{
+				sutapimai++;
+			}
+		}
+		if (dif == 0 && prev != test && sutapimai == 0)
 		{
 			NewBlock.prev_block_hash = prev;
 			NewBlock.current_block_hash = test;
