@@ -45,20 +45,21 @@ public:
 
 	void add_block(Block naujas) { blocks.push_back(naujas); }
 	std::string prev_block_hash_get(int id) { return blocks[id].current_block_hash; }
-	void print_all_blocks()
+	void print_all_blocks(int dydis)
 	{
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			std::cout << "-------------------------------------------" << std::endl;
 			std::cout << "BLOCK " + std::to_string(i)<< std::endl;
-			std::cout <<blocks[i].prev_block_hash << std::endl;
-			std::cout <<blocks[i].current_block_hash << std::endl;
-			std::cout <<blocks[i].time_stamp << std::endl;
-			std::cout <<blocks[i].version << std::endl;
-			std::cout <<blocks[i].merkel_tree << std::endl;
-			std::cout <<blocks[i].nonce + " (HEX)" << std::endl;
-			std::cout <<blocks[i].difficulty_target << std::endl;
-
+			std::cout <<"Prev block: "<<blocks[i].prev_block_hash << std::endl;
+			std::cout <<"Current block: "<<blocks[i].current_block_hash << std::endl;
+			std::cout<<"Time stamp: "<<blocks[i].time_stamp << std::endl;
+			std::cout <<"Version: "<<blocks[i].version << std::endl;
+			std::cout <<"Merkel tree: "<<blocks[i].merkel_tree << std::endl;
+			std::cout <<"Nonce: "<<blocks[i].nonce + " (HEX)" << std::endl;
+			std::cout <<"Difficulty target: "<<blocks[i].difficulty_target << std::endl;
+			std::cout << "Number of trasactions: " << blocks[i].transactions.size() << std::endl;
+			std::cout << "Liko nepriskirtu trasakciju: " << dydis << std::endl;
 		}
 	}
 };
@@ -88,6 +89,7 @@ public:
 	int get_num_of_transactions() { return transactions.size(); }
 	std::vector<Transaction> get_all_transactions() const { return transactions; }
 	Transaction get_one_trasaction(int ID) const { return transactions[ID]; }
+	
 
 	void add_transaction(Transaction naujas) { transactions.push_back(naujas); }
 	void print_all_transactions()
@@ -101,15 +103,25 @@ public:
 	{
 		
 		std::vector<Transaction> rez;
+		int dydis = transactions.size();
 		for (int i = 0; i < 100; i++)
 		{
+			start:
 			std::random_device dev;
 			std::mt19937 rng(dev());
-			std::uniform_int_distribution<std::mt19937::result_type> dist6(1, transactions.size()); 
+			std::uniform_int_distribution<std::mt19937::result_type> dist6(0, dydis); 
 
-			int a = dist6(rng);
-			rez.push_back(transactions[a]);
-			transactions.erase(transactions.begin() + a);
+			try {
+				int a = dist6(rng);
+				rez.push_back(transactions[a]);
+				transactions.erase(transactions.begin() + a);
+			}
+			catch(std::string e)
+			{
+				goto start;
+				std::cout << e << std::endl;
+			}
+			
 		}
 		return rez;
 	}
