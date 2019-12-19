@@ -77,6 +77,7 @@ std::vector<Transaction> BalansoTikrinimas(std::vector<Transaction> trasakcijos,
 	return rez;
 }
 
+//v0,1
 Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions)
 {
 	Block NewBlock;
@@ -176,6 +177,7 @@ Block SpecialMining(int difficulty, std::string prev, std::vector<Transaction>tr
 	return NewBlock;
 }
 
+//v0,2 - v0,3
 NewBlock NewMining(int difficulty, std::string prev, std::vector<Transaction>transactions, int kiekTransakcijuBlokui, int miningLimit, int mining_Limit_update)
 {
 	int mining_limit = miningLimit;
@@ -186,7 +188,7 @@ NewBlock NewMining(int difficulty, std::string prev, std::vector<Transaction>tra
 	std::vector<std::vector<Transaction>>atrinktos_transakcijos;
 	for (int i = 0; i < 5; i++)
 	{
-		pasirinktosTransakcijos.push_back(Select_transaction(0, transactions.size(), kiekTransakcijuBlokui));
+		pasirinktosTransakcijos.push_back(Select_transaction(0, transactions.size()-1, kiekTransakcijuBlokui));
 		atrinktos_transakcijos.push_back(transfer_transactions(pasirinktosTransakcijos[i], transactions));
 	}
 	

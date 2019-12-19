@@ -4,4 +4,17 @@ c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(52): warnin
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(80): warning C4018: '<': signed/unsigned mismatch
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(101): warning C4018: '<': signed/unsigned mismatch
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(111): warning C4018: '<': signed/unsigned mismatch
+  funkcijos.cpp
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(52): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(80): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(101): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(111): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(38): warning C4838: conversion from 'int' to 'double' requires a narrowing conversion
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(68): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(91): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(251): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(269): warning C4267: 'initializing': conversion from 'size_t' to 'uint16_t', possible loss of data
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\funkcijos.cpp(292): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   v0.1_VS.vcxproj -> C:\Users\Vladas\Desktop\BlockChain\2BlockChaiUzd\Debug\2Uzd.exe
