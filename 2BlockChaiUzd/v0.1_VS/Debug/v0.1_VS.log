@@ -3,4 +3,5 @@
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(50): warning C4018: '<': signed/unsigned mismatch
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(78): warning C4018: '<': signed/unsigned mismatch
 c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(97): warning C4018: '<': signed/unsigned mismatch
+c:\users\vladas\desktop\blockchain\2blockchaiuzd\v0.1_vs\struktura.h(107): warning C4018: '<': signed/unsigned mismatch
   v0.1_VS.vcxproj -> C:\Users\Vladas\Desktop\BlockChain\2BlockChaiUzd\Debug\2Uzd.exe

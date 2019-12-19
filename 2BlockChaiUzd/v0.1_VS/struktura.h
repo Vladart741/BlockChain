@@ -29,7 +29,7 @@ struct  Block
 	std::string time_stamp;
 	std::string version;
 	std::string merkel_tree;
-	std::string nonce;
+	int nonce;
 	int difficulty_target;
 	std::vector<Transaction>transactions;
 };
@@ -52,11 +52,11 @@ public:
 			std::cout << "-------------------------------------------" << std::endl;
 			std::cout << "BLOCK " + std::to_string(i)<< std::endl;
 			std::cout <<"Prev block: "<<blocks[i].prev_block_hash << std::endl;
-			std::cout <<"Current block: "<<blocks[i].current_block_hash << std::endl;
+			std::cout <<"Curr block: "<<blocks[i].current_block_hash << std::endl;
 			std::cout<<"Time stamp: "<<blocks[i].time_stamp << std::endl;
 			std::cout <<"Version: "<<blocks[i].version << std::endl;
 			std::cout <<"Merkel tree: "<<blocks[i].merkel_tree << std::endl;
-			std::cout <<"Nonce: "<<blocks[i].nonce + " (HEX)" << std::endl;
+			std::cout <<"Nonce: "<<blocks[i].nonce << std::endl;
 			std::cout <<"Difficulty target: "<<blocks[i].difficulty_target << std::endl;
 			std::cout << "Number of trasactions: " << blocks[i].transactions.size() << std::endl;
 			std::cout << "Liko nepriskirtu trasakciju: " << dydis << std::endl;
@@ -99,29 +99,15 @@ public:
 			std::cout << transactions[i].id << " " << transactions[i].sender << " " << transactions[i].getter << " "<<transactions[i].amount << std::endl;
 		}
 	}
-	std::vector<Transaction> transfer_transactions()
+	std::vector<Transaction> transfer_transactions(std::vector<int>pasirinkimai)
 	{
 		
 		std::vector<Transaction> rez;
 		int dydis = transactions.size();
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < pasirinkimai.size(); i++)
 		{
-			start:
-			std::random_device dev;
-			std::mt19937 rng(dev());
-			std::uniform_int_distribution<std::mt19937::result_type> dist6(0, dydis); 
-
-			try {
-				int a = dist6(rng);
-				rez.push_back(transactions[a]);
-				transactions.erase(transactions.begin() + a);
-			}
-			catch(std::string e)
-			{
-				goto start;
-				std::cout << e << std::endl;
-			}
-			
+				rez.push_back(transactions[pasirinkimai[i]]);
+				transactions.erase(transactions.begin() + pasirinkimai[i]);		
 		}
 		return rez;
 	}

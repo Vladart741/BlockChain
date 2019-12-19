@@ -6,6 +6,7 @@
 
 
 
+
 std::mt19937 randomly_seeded_engine() {
 
 	// create a seed sequence of several reasonably random values
@@ -57,40 +58,41 @@ Transactions New_Transactions(int kiek, int kiek_useriu)
 }
 
 
-Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions, std::vector<std::string>block_name_history)
+Block Mining(int difficulty, std::string prev, std::vector<Transaction>transactions)
 {
 	Block NewBlock;
 	
-	for (int i = 0; i < 100000000; i++)
+	for (int i = -1; i > -2; i++)
 	{
 		int dif = difficulty;
-		std::string test = sha256(int_to_hex(i));
+		std::time_t result = std::time(nullptr); //timestamp
+
+		std::string newHash = prev + std::asctime(std::localtime(&result)) + "Version1" + std::to_string(i);
+		for (int a = 0; a < transactions.size();a++)
+		{
+			newHash = newHash + transactions[a].id;
+		}
+
+		std::string test = sha256(newHash);
 		for (int j = 0; j < difficulty; j++)
 		{
 			if (test[j] == '0')
 			{
+
 				dif = dif - 1;
 			}
 
 		}
-		int sutapimai = 0;
-		for (int i = 0; i < block_name_history.size(); i++)
-		{
-			if (test == block_name_history[i])
-			{
-				sutapimai++;
-			}
-		}
-		if (dif == 0 && prev != test && sutapimai == 0)
+		if (dif == 0 && prev != test)
 		{
 			NewBlock.prev_block_hash = prev;
 			NewBlock.current_block_hash = test;
 
-			NewBlock.time_stamp = "now";			
+			NewBlock.time_stamp = std::asctime(std::localtime(&result));
 
-			NewBlock.version = "1";
-			NewBlock.merkel_tree = "1";
-			NewBlock.nonce = int_to_hex(i);
+			NewBlock.version = "Version1";
+			NewBlock.merkel_tree = " ";
+			NewBlock.nonce = i;
 			NewBlock.difficulty_target = difficulty;
 			NewBlock.transactions = transactions;
 
@@ -101,6 +103,17 @@ Block Mining(int difficulty, std::string prev, std::vector<Transaction>transacti
 	return NewBlock;
 }
 
+std::vector<int> Select_transaction(int a, int b, int n)
+{
+	std::vector<int>pasirinktosT;
+	for (int i = 0; i < n; i++)
+	{
+		pasirinktosT.push_back(randomNum(a,b));
+		b = b - 1;
+	}
+	std::sort(pasirinktosT.begin(), pasirinktosT.end(), greater());
+	return pasirinktosT;
+}
 
 template< typename T >
 std::string int_to_hex(T i)
@@ -109,3 +122,14 @@ std::string int_to_hex(T i)
 	stream << std::hex << i;
 	return stream.str();
 }
+
+std::string GetTime()
+{
+	time_t rawtime;
+	std::time(&rawtime);
+	struct tm *tinfo = std::localtime(&rawtime);
+	char buffer[12];
+	strftime(buffer, 12, "%F", tinfo);
+	return std::string(buffer);
+}
+
