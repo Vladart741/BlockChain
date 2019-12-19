@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "funkcijos.h"
+#include "sha256.h"
 #include <string>
 #include <vector>
 #include <random>
@@ -42,6 +43,7 @@ private:
 public:
 	std::vector<Block> blockchain_get() const { return blocks; }
 	Block one_block_get(int ID) const { return blocks[ID]; }
+	int get_size() const { return blocks.size(); }
 
 	void add_block(Block naujas) { blocks.push_back(naujas); }
 	std::string prev_block_hash_get(int id) { return blocks[id].current_block_hash; }
@@ -89,8 +91,10 @@ public:
 	int get_num_of_transactions() { return transactions.size(); }
 	std::vector<Transaction> get_all_transactions() const { return transactions; }
 	Transaction get_one_trasaction(int ID) const { return transactions[ID]; }
-	
 
+
+	
+	void set_all_transactions(std::vector<Transaction>naujas) { transactions = naujas; }
 	void add_transaction(Transaction naujas) { transactions.push_back(naujas); }
 	void print_all_transactions()
 	{
@@ -106,13 +110,27 @@ public:
 		int dydis = transactions.size();
 		for (int i = 0; i < pasirinkimai.size(); i++)
 		{
+			std::string test = sha256(transactions[pasirinkimai[i]].sender + transactions[pasirinkimai[i]].getter + std::to_string(transactions[pasirinkimai[i]].amount));
+			if (test == transactions[pasirinkimai[i]].id)
+			{
 				rez.push_back(transactions[pasirinkimai[i]]);
-				transactions.erase(transactions.begin() + pasirinkimai[i]);		
+				transactions.erase(transactions.begin() + pasirinkimai[i]);
+			}
+			else
+			{
+				transactions.erase(transactions.begin() + pasirinkimai[i]);
+			}
+	
 		}
 		return rez;
 	}
 
-};
 
+};
+struct NewBlock
+{
+	Block block;
+	std::vector<int>pasirinktosTransakcijos;
+};
 
 #endif //INC_0_1V_STRUKTURA_H
