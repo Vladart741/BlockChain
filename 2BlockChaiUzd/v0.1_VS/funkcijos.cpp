@@ -182,16 +182,22 @@ NewBlock NewMining(int difficulty, std::string prev, std::vector<Transaction>tra
 	int i = 0;
 	NewBlock Winner;
 
-	start:
-	std::vector<int>pasirinktosTransakcijos = Select_transaction(0, transactions.size(), kiekTransakcijuBlokui);
-	std::vector<Transaction>atrinktos_transakcijos = transfer_transactions(pasirinktosTransakcijos, transactions);
+	std::vector<std::vector<int>>pasirinktosTransakcijos;
+	std::vector<std::vector<Transaction>>atrinktos_transakcijos;
+	for (int i = 0; i < 5; i++)
+	{
+		pasirinktosTransakcijos.push_back(Select_transaction(0, transactions.size(), kiekTransakcijuBlokui));
+		atrinktos_transakcijos.push_back(transfer_transactions(pasirinktosTransakcijos[i], transactions));
+	}
+	
+	start:	
 
-	Block Kandidatas = SpecialMining(difficulty, prev, atrinktos_transakcijos,mining_limit,kiekTransakcijuBlokui);
+	Block Kandidatas = SpecialMining(difficulty, prev, atrinktos_transakcijos[i],mining_limit,kiekTransakcijuBlokui);
 
 	if (Kandidatas.current_block_hash != "1" && i < 5)
 	{
 		Winner.block = Kandidatas;
-		Winner.pasirinktosTransakcijos = pasirinktosTransakcijos;
+		Winner.pasirinktosTransakcijos = pasirinktosTransakcijos[i];
 	}
 	else if (Kandidatas.current_block_hash != "1" && i < 5)
 	{
