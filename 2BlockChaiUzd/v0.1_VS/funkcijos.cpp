@@ -3,9 +3,7 @@
 #include "funkcijos.h"
 #include <iomanip>
 #include <algorithm>
-
-
-
+#include <assert.h>
 
 
 std::mt19937 randomly_seeded_engine() {
@@ -257,4 +255,51 @@ std::vector<Transaction> transfer_transactions(std::vector<int>pasirinkimai,std:
 
 	}
 	return rez;
+}
+std::string create_merkle(std::vector<Transaction>transactions)
+{
+	uint16_t size = transactions.size();
+	std::vector<std::string> merkle(size);
+	for (uint16_t i = 0; i < size; i++) {
+		merkle[i] = transactions[i].id;
+	}
+	// Stop if hash list is empty or contains one element
+	if (merkle.empty())
+		return sha256(NULL);
+	else if (merkle.size() == 1)
+		return merkle[0];
+
+	// While there is more than 1 hash in the list, keep looping...
+	while (merkle.size() > 1)
+	{
+		// If number of hashes is odd, duplicate last hash in the list.
+		if (merkle.size() % 2 != 0)
+			merkle.push_back(merkle.back());
+		// List size is now even.
+		assert(merkle.size() % 2 == 0);
+
+		// New hash list.
+		std::vector<std::string> new_merkle;
+		// Loop through hashes 2 at a time.
+		for (auto it = 0; it < merkle.size(); it += 2)
+		{
+			// Join both current hashes together (concatenate).
+			std::string concat_data = merkle[it] + merkle[it + 1];
+			// Hash both of the hashes.
+			std::string new_root = sha256(concat_data);
+			// Add this to the new list.
+			new_merkle.push_back(new_root);
+		}
+		// This is the new list.
+		merkle = new_merkle;
+
+		// DEBUG output -------------------------------------
+		std::cout << "Current merkle hash list:" << std::endl;
+		for (const auto& hash : merkle)
+			std::cout << "  " << hash << std::endl;
+		std::cout << std::endl;
+		// --------------------------------------------------
+	}
+	// Finally we end up with a single item.
+	return merkle[0];
 }

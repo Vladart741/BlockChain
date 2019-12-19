@@ -32,6 +32,7 @@ Block SpecialMining(int difficulty, std::string prev, std::vector<Transaction>tr
 NewBlock NewMining(int difficulty, std::string prev, std::vector<Transaction>transactions, int kiekTransakcijuBlokui, int miningLimit, int mining_Limit_update);
 
 std::vector<Transaction> transfer_transactions(std::vector<int>pasirinkimai, std::vector<Transaction>transactions);
+std::string create_merkle(std::vector<Transaction>transactions);
 
 struct greater
 {
